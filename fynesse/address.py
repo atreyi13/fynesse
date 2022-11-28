@@ -34,8 +34,10 @@ def predict_data(latitude, longitude, date, property_type):
     dateend = '31-12-' + year
     datedate = datetime.strptime(date, "%d%m%Y").date()
     access.create_price_coord_data(conn)
+    
     df = access.access_for_prediction(latstart, latend, longstart, longend, datestart,dateend, property_type)
     df = df.sort_values(by=['price'])
+    pois = assess.get_pois(df)
     df['vector_distance_cat'] = assess.vec_app(df2,0.02, pois, fynesse.assess.get_vector_inv_cat)
     df['vector_distance'] = assess.vec_app(df2,0.02, pois, fynesse.assess.get_vector_distance)
     df['vector_count'] = assess.vec_app(df2,0.02, pois, fynesse.assess.get_vector_count)
