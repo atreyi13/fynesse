@@ -60,6 +60,32 @@ def get_geo_graph(df,place_name): #This returns nodes, edges and area from coord
     area = ox.geocode_to_gdf(place_name)
     return nodes, edges, area
 
+def plot_geo_graph(df,place_name): #We return a graph of the pois in this function
+    north = df['lattitude'].max() + 0.02
+    south = df['lattitude'].min() - 0.02
+    west = df['longitude'].min() - 0.02
+    east = df['longitude'].max() + 0.02
+    
+    nodes, edges, area = get_geo_graph(df, place_name)   
+    fig, ax = plt.subplots(figsize=plot.big_figsize)
+
+    # Plot the footprint
+    area.plot(ax=ax, facecolor="white")
+
+    # Plot street edges
+    edges.plot(ax=ax, linewidth=1, edgecolor="dimgray")
+
+    ax.set_xlim([west, east])
+    ax.set_ylim([south, north])
+    ax.set_xlabel("longitude")
+    ax.set_ylabel("latitude")
+
+    # Plot all POIs 
+    pois.plot(ax=ax, color="blue", alpha=0.7, markersize=10)
+    plt.tight_layout()
+    mlai.write_figure(directory="./maps", filename="cambridge-england-pois.svg")
+    return fig
+
 def plot_log_prices_over_region(df): #This returns a graph that plots the log distribution of house prices over the given region. Colorbar maps colour to house prices.
     z = df['price']
     x = df['longitude'] 
