@@ -19,7 +19,6 @@ import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from matplotlib.lines import Line2D
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 import math
 from scipy.spatial import distance_matrix
 
