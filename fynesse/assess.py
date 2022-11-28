@@ -449,7 +449,7 @@ def get_vector_count_cat(row,df3, distance):  #This function will get a training
       print(row['price'])    
       return vector 
     
-def vec_app( df2, distance, func_name = get_vector_distance): #This applies one of the four functions to the entire dataframe. Distance is a measure of the bounding box for each house.
+def vec_app( df2, distance, pois, func_name = get_vector_distance): #This applies one of the four functions to the entire dataframe. Distance is a measure of the bounding box for each house.
     #Please run this function to get the training dataset for the entire table
   df3 = get_tags(pois)
   vectors = df2.apply(lambda x : func_name(x, df3, distance), axis=1)
