@@ -488,7 +488,7 @@ def cross_corr(vectors): # This function returns the cross correlation matrix fo
     plt.colorbar(im, ax=ax)
     fig.text(0.5,0.01, "Correlation Matrix of Features", ha="center", va="center")  
     
-def correlation_with_price(vectors): #This returns a graph that plots the correlation values of the features with the price
+def correlation_with_price(vectors, df2): #This returns a graph that plots the correlation values of the features with the price
     vector = np.array([np.array(xi) for xi in vectors])
     vec_tran = vector.transpose()
     vec_price = np.array(df2['price'])
