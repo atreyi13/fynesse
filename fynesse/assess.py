@@ -508,13 +508,13 @@ def plot_price_similarity(df2): #This function returns the similarity matrix of 
     im = ax[0, 0].imshow(distancedf, cmap='rainbow')
     plt.colorbar(im, ax=ax[0, 0])
 
-    im = ax[0, 1].imshow(distancedf[0:len(vector)//10, 0:len(vector)//10], cmap='rainbow')
+    im = ax[0, 1].imshow(distancedf[0:len(b)//10, 0:len(b)//10], cmap='rainbow')
     plt.colorbar(im, ax=ax[0, 1])
 
-    im = ax[1, 0].imshow(distancedf[len(vector)//10:9*len(vector)//10, len(vector)//10:9*len(vector)//10], cmap='rainbow')
+    im = ax[1, 0].imshow(distancedf[len(b)//10:9*len(b)//10, len(b)//10:9*len(b)//10], cmap='rainbow')
     plt.colorbar(im, ax=ax[1, 0])
 
-    im = ax[1, 1].imshow(distancedf[9*len(vector)//10:, 9*len(vector)//10:], cmap='rainbow')
+    im = ax[1, 1].imshow(distancedf[9*len(b)//10:, 9*len(b)//10:], cmap='rainbow')
     plt.colorbar(im, ax=ax[1, 1])
     fig.text(0.5,0.01, "Euclidean Distance of Prices", ha="center", va="center")
     plt.show()
