@@ -13,8 +13,9 @@ import sklearn.feature_extraction"""
 """Place commands in this file to assess the data you have downloaded. How are missing values encoded, how are outliers encoded? What do columns represent, makes rure they are correctly labeled. How is the data indexed. Crete visualisation routines to assess the data (e.g. in bokeh). Ensure that date formats are correct and correctly timezoned."""
 import pandas as pd
 import osmnx as ox
-import matplotlib as plt
 import numpy as np
+import mlai
+import mlai.plot as plot
 import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
