@@ -16,3 +16,12 @@ import scipy.stats"""
 
 """Address a particular question that arises from the data"""
 
+from datetime import datetime
+import sklearn
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from scipy.optimize import curve_fit
+from mpl_toolkits.mplot3d import Axes3D
+import statsmodels.api as sm
+
+
