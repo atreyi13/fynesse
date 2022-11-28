@@ -61,7 +61,7 @@ def get_geo_graph(df,place_name): #This returns nodes, edges and area from coord
     area = ox.geocode_to_gdf(place_name)
     return nodes, edges, area
 
-def plot_geo_graph(df,place_name): #We return a graph of the pois in this function
+def plot_geo_graph(df,place_name, pois): #We return a graph of the pois in this function
     north = df['lattitude'].max() + 0.02
     south = df['lattitude'].min() - 0.02
     west = df['longitude'].min() - 0.02
