@@ -446,7 +446,6 @@ def get_vector_count_cat(row,df3, distance):  #This function will get a training
           ttdf3 = tdf3[tdf3['category'] == cat]
           invd = (ttdf3.apply(lambda x: 1, axis =1)).sum()
           vector.append(invd)
-      print(row['price'])    
       return vector 
     
 def vec_app( df2, distance, pois, func_name = get_vector_distance): #This applies one of the four functions to the entire dataframe. Distance is a measure of the bounding box for each house.
