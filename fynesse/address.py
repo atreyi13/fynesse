@@ -29,7 +29,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import statsmodels.api as sm
 import numpy as np
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 def hello_world():
     print("This is my first pip package!")
