@@ -37,8 +37,8 @@ def predict_data(latitude, longitude, date, property_type, conn):
     longstart = longitude - 0.5
     longend = longitude + 0.5
     year = date[-4:]
-    datestart = '01-01-' + year
-    dateend = '31-12-' + year
+    datestart =  year+'-01-01'
+    dateend = year+'-12-31'
     datedate = datetime.strptime(date, "%d%m%Y").date()
     access.create_price_coord_data(conn)
     
