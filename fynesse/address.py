@@ -44,10 +44,10 @@ def predict_data(latitude, longitude, date, property_type, conn):
     df = access.access_for_prediction(latstart, latend, longstart, longend, datestart,dateend, property_type,conn)
     df = df.sort_values(by=['price'])
     pois = assess.get_pois(df)
-    df['vector_distance_cat'] = assess.vec_app(df,0.02, pois, fynesse.assess.get_vector_inv_cat)
-    df['vector_distance'] = assess.vec_app(df,0.02, pois, fynesse.assess.get_vector_distance)
-    df['vector_count'] = assess.vec_app(df,0.02, pois, fynesse.assess.get_vector_count)
-    df2['vector_count_cat'] = assess.vec_app(df, 0.02,pois, fynesse.assess.get_vector_count_cat)
+    df['vector_distance_cat'] = assess.vec_app(df,0.02, pois, assess.get_vector_inv_cat)
+    df['vector_distance'] = assess.vec_app(df,0.02, pois, assess.get_vector_distance)
+    df['vector_count'] = assess.vec_app(df,0.02, pois, assess.get_vector_count)
+    df2['vector_count_cat'] = assess.vec_app(df, 0.02,pois, assess.get_vector_count_cat)
     test = df[(df['lattitude'] == latitude) & (df['longitude']	== longitude ) & (df['date_of_transfer'] == datedate)]
     df = df[(df['lattitude'] != latitude) | (df['longitude']	!= longitude ) | (df['date_of_transfer'] != datedate)]
 
