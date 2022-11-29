@@ -28,6 +28,9 @@ from scipy.optimize import curve_fit
 from mpl_toolkits.mplot3d import Axes3D
 import statsmodels.api as sm
 
+def hello_world():
+    print("This is my first pip package!")
+
 def predict_data(latitude, longitude, date, property_type):
     latstart = latitude - 0.5
     latend = latitude + 0.5
