@@ -97,7 +97,7 @@ def predict_z(df2, test, components,column):
     display_pca_data(x,y,z)
     z_pred_scipy = scipy_fit_pred(x,y,z,x_test,y_test)
     z_pred_sklearn = sklearn_fit_pred(x,y,z,x_test,y_test)
-    z_pred_statsmodel = statsmodel_fit_pred((x,y,z,x_test,y_test))
+    z_pred_statsmodel = statsmodel_fit_pred(x,y,z,x_test,y_test)
     return z_real, z_pred_scipy, z_pred_sklearn, z_pred_statsmodel  
 
 def display_pca_data(x,y,z):
