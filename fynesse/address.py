@@ -1,4 +1,8 @@
 # This file contains code for suporting addressing questions in the data
+from .config import *
+
+from . import access
+from . import assess
 
 """# Here are some of the imports we might expect 
 import sklearn.model_selection  as ms
