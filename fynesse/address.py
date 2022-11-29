@@ -27,6 +27,7 @@ from sklearn.preprocessing import StandardScaler
 from scipy.optimize import curve_fit
 from mpl_toolkits.mplot3d import Axes3D
 import statsmodels.api as sm
+import numpy as np
 
 def hello_world():
     print("This is my first pip package!")
