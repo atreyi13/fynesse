@@ -31,7 +31,7 @@ import statsmodels.api as sm
 def hello_world():
     print("This is my first pip package!")
 
-def predict_data(latitude, longitude, date, property_type):
+def predict_data(latitude, longitude, date, property_type, conn):
     latstart = latitude - 0.5
     latend = latitude + 0.5
     longstart = longitude - 0.5
