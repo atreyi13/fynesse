@@ -28,15 +28,17 @@ from scipy.optimize import curve_fit
 from mpl_toolkits.mplot3d import Axes3D
 import statsmodels.api as sm
 import numpy as np
+import pandas as pd
+import matplotlib as plt
 
 def hello_world():
     print("This is my first pip package!")
 
 def predict_data(latitude, longitude, date, property_type, conn):
-    latstart = latitude - 0.2
-    latend = latitude + 0.2
-    longstart = longitude - 0.2
-    longend = longitude + 0.2
+    latstart = latitude - 0.1
+    latend = latitude + 0.1
+    longstart = longitude - 0.1
+    longend = longitude + 0.1
     year = date[-4:]
     datestart =  year+'-01-01'
     dateend = year+'-12-31'
