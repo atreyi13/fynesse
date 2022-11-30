@@ -12,10 +12,50 @@ import sqlite"""
 import yaml
 import pymysql
 import pandas as pd
+import warnings
+
+warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
 
 """Place commands in this file to access the data electronically. Don't remove any missing values, or deal with outliers. Make sure you have legalities correct, both intellectual property and personal data privacy rights. Beyond the legal side also think about the ethical issues around this data. """
 def hello_world():
     print("This is my first pip package!")
+    
+def store_credentials():
+    @interact_manual(username=Text(description="Username:"), 
+                    password=Password(description="Password:"))
+    def write_credentials(username, password):
+        with open("credentials.yaml", "w") as file:
+            credentials_dict = {'username': username, 
+                                'password': password}
+            yaml.dump(credentials_dict, file)
+            
+def create_conn():
+    database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west-2.rds.amazonaws.com', 
+                    "port": 3306}
+    with open("credentials.yaml") as file:
+      credentials = yaml.safe_load(file)
+    username = credentials["username"]
+    password = credentials["password"]
+    url = database_details["url"]
+
+    def create_connection(user, password, host, database, port=3306):
+        conn = None
+        try:
+            conn = pymysql.connect(user=user,
+                                  passwd=password,
+                                  host=host,
+                                  port=port,
+                                  local_infile=1,
+                                  db=database
+                                  )
+        except Exception as e:
+            print(f"Error connecting to the MariaDB Server: {e}")
+        return conn
+    conn = create_connection(user=credentials["username"], 
+                         password=credentials["password"], 
+                         host=database_details["url"],
+                         database="uk_house_prices")
+    return conn              
     
 def create_pp_data(conn): #This will empty pp_data.Please don't run this
     c = conn.cursor()
