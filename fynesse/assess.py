@@ -284,6 +284,47 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
     plt.savefig('prices_overtime_log.png', bbox_inches = 'tight')
     return fig
 
+def transactions_over_time(df): #This returns a graph of the prices over time of different types of houses. The bounds are the max and min house prices.
+
+    y1 = (df[df['property_type'] == 'D'].groupby(pd.PeriodIndex(df[df['property_type'] == 'D']['date_of_transfer'], freq="M"))['price'])
+    y2 = (df[df['property_type'] == 'F'].groupby(pd.PeriodIndex(df[df['property_type'] == 'F']['date_of_transfer'], freq="M"))['price'])
+    y3 = (df[df['property_type'] == 'O'].groupby(pd.PeriodIndex(df[df['property_type'] == 'O']['date_of_transfer'], freq="M"))['price'])
+    y4 = (df[df['property_type'] == 'S'].groupby(pd.PeriodIndex(df[df['property_type'] == 'S']['date_of_transfer'], freq="M"))['price'])
+    y5 = (df[df['property_type'] == 'T'].groupby(pd.PeriodIndex(df[df['property_type'] == 'T']['date_of_transfer'], freq="M"))['price'])
+    x = sorted(list(set((pd.DatetimeIndex( df['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
+    x3 = sorted(list(set((pd.DatetimeIndex( df[df['property_type'] == 'O']['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
+    #newticks = [j for i,j in enumerate(x) if not i%24]
+    newticks = x
+
+    fig = plt.figure(figsize=(15,7.5))
+    ax1 = fig.subplots(1, 2)
+    ax1[0].plot(x, y1.size(), color='red', linestyle='--', zorder=1, label="Detached")
+    ax1[0].plot(x, y2.size(), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
+    ax1[0].plot(x3, y3.size(), color='green', linestyle='--', zorder=1, label="Other")
+    ax1[0].plot(x, y4.size(), color='orange', linestyle='--', zorder=1, label="Semi-Detached")
+    ax1[0].plot(x, y5.size(), color='magenta', linestyle='--', zorder=1, label="Terraced")
+    ax1[0].legend()
+    ax1[0].set_xticks(newticks)
+    ax1[0].set_xticklabels(newticks, rotation = 45)
+    ax1[0].set_xlabel('months') 
+    ax1[0].set_ylabel('price') 
+
+    ax1[1].plot(x, y1.size(), color='red', linestyle='--', zorder=1)
+    ax1[1].plot(x, y2.size(), color='cyan', linestyle='--', zorder=1)
+    ax1[1].plot(x, y4.size(), color='orange', linestyle='--', zorder=1)
+    ax1[1].plot(x, y5.size(), color='magenta', linestyle='--', zorder=1)
+    ax1[1].set_xticks(newticks)
+    ax1[1].set_xticklabels(newticks, rotation = 45)
+    ax1[1].set_xlabel('months') 
+    ax1[1].set_ylabel('price') 
+
+
+    fig.text(0.5,0.01, "Prices over time", ha="center", va="center")
+
+    plt.tight_layout()
+    plt.savefig('transactions_overtime.png', bbox_inches = 'tight')
+    return fig
+
 def get_tags(pois): #This function simplifies the pois dataframe. It puts pois relevant to housing(like amenities, shops) in a single column. Each row also specifies the latitude and longitude of the poi. 
     #It is not necessary to run this to get training vectors since a call to this function is included in those functions.
     #This is the first point of feature reduction based on human bias.
