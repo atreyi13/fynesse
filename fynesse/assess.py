@@ -221,7 +221,26 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
     newticks = x
 
     fig = plt.figure(figsize=(15,15))
-    (ax2, ax3) = fig.subplots(2, 2)
+    (ax1, ax2, ax3) = fig.subplots(3, 2)
+    ax1[0].plot(x, np.log(y1.mean()), color='red', linestyle='--', zorder=1, label="Detached")
+    ax1[0].plot(x, np.log(y2.mean()), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
+    ax1[0].plot(x3, np.log(y3.mean()), color='green', linestyle='--', zorder=1, label="Other")
+    ax1[0].plot(x, np.log(y4.mean()), color='orange', linestyle='--', zorder=1, label="Semi-Detached")
+    ax1[0].plot(x, np.log(y5.mean()), color='magenta', linestyle='--', zorder=1, label="Terraced")
+    ax1[0].legend()
+    ax1[0].set_xticks(newticks)
+    ax1[0].set_xticklabels(newticks, rotation = 45)
+    ax1[0].set_xlabel('months') 
+    ax1[0].set_ylabel('price') 
+
+    ax1[1].plot(x, np.log(y1.mean()), color='red', linestyle='--', zorder=1)
+    ax1[1].plot(x, np.log(y2.mean()), color='cyan', linestyle='--', zorder=1)
+    ax1[1].plot(x, np.log(y4.mean()), color='orange', linestyle='--', zorder=1)
+    ax1[1].plot(x, np.log(y5.mean()), color='magenta', linestyle='--', zorder=1)
+    ax1[1].set_xticks(newticks)
+    ax1[1].set_xticklabels(newticks, rotation = 45)
+    ax1[1].set_xlabel('months') 
+    ax1[1].set_ylabel('price') 
 
     ax2[0].plot(x, np.log(y1.max()),color='red',linestyle='-',zorder=1)
     ax2[0].plot(x, np.log(y1.mean()), color='red', linestyle='--', zorder=1)
