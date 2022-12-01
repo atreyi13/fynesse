@@ -30,9 +30,8 @@ def store_credentials():
                                 'password': password}
             yaml.dump(credentials_dict, file)
             
-def create_conn():
-    database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west-2.rds.amazonaws.com', 
-                    "port": 3306}
+def create_conn(database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west-2.rds.amazonaws.com', 
+                    "port": 3306}):
     with open("credentials.yaml") as file:
       credentials = yaml.safe_load(file)
     username = credentials["username"]
