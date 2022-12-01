@@ -412,23 +412,19 @@ def get_vector_distance(row,df3,distance): #This function will get a training ve
       tags = sorted(set(df3['tag']))
       categories = sorted(set(df3['category']))
       p_types = {'F':1, 'T':2, 'S':3, 'D':4, 'O':5}
-      n_flag = {'Y':1,'N':2}
-      t_type = {'L':1, 'F':2}
       tdf3 = df3[(abs(df3['latitude'] - row[11]) <= distance) & (abs(df3['longitude'] - row[12]) <= distance)]
       vector = []
-      vector.append(int(row[1].strftime("%Y%m%d")))
-      vector.append(p_types[row[3]])
-      vector.append(n_flag[row[4]])
-      vector.append(t_type[row[5]])
-      vector.append(row[11])
-      vector.append(row[12])
+      vector.append(int(row['date_of_transfer'].strftime("%Y%m%d")))
+      vector.append(p_types[row['property_type']])
+      vector.append(row['lattitude'])
+      vector.append(row['longitude'])
 
       for i,tag in enumerate(tags):
         if tag not in tdf3['tag'].unique():
           vector.append(0)
         else:
           ttdf3 = tdf3[tdf3['tag'] == tag]
-          invd = (ttdf3.apply(lambda x: 1/(math.hypot(row[11]-x['longitude'], row[12] - x['latitude']) + 0.000001), axis =1)).sum()
+          invd = (ttdf3.apply(lambda x: 1/(math.hypot(row['longitude']-x['longitude'], row['lattitude'] - x['latitude']) + 0.000001), axis =1)).sum()
           vector.append(invd)   
       return vector 
 
@@ -437,16 +433,12 @@ def get_vector_count(row,df3,distance): #This function will get a training vecto
       tags = sorted(set(df3['tag']))
       categories = sorted(set(df3['category']))
       p_types = {'F':1, 'T':2, 'S':3, 'D':4, 'O':5}
-      n_flag = {'Y':1,'N':2}
-      t_type = {'L':1, 'F':2}
       tdf3 = df3[(abs(df3['latitude'] - row[11]) <= distance) & (abs(df3['longitude'] - row[12]) <= distance)]
       vector = []
-      vector.append(int(row[1].strftime("%Y%m%d")))
-      vector.append(p_types[row[3]])
-      vector.append(n_flag[row[4]])
-      vector.append(t_type[row[5]])
-      vector.append(row[11])
-      vector.append(row[12])
+      vector.append(int(row['date_of_transfer'].strftime("%Y%m%d")))
+      vector.append(p_types[row['property_type']])
+      vector.append(row['lattitude'])
+      vector.append(row['longitude'])
 
       for i,tag in enumerate(tags):
         if tag not in tdf3['tag'].unique():
@@ -462,24 +454,19 @@ def get_vector_inv_cat(row,df3, distance):  #This function will get a training v
       tags = sorted(set(df3['tag']))
       categories = sorted(set(df3['category']))
       p_types = {'F':1, 'T':2, 'S':3, 'D':4, 'O':5}
-      n_flag = {'Y':1,'N':2}
-      t_type = {'L':1, 'F':2}
       tdf3 = df3[(abs(df3['latitude'] - row[11]) <= distance) & (abs(df3['longitude'] - row[12]) <= distance)]
       vector = []
-
-      vector.append(int(row[1].strftime("%Y%m%d")))
-      vector.append(p_types[row[3]])
-      vector.append(n_flag[row[4]])
-      vector.append(t_type[row[5]])
-      vector.append(row[11])
-      vector.append(row[12])
+      vector.append(int(row['date_of_transfer'].strftime("%Y%m%d")))
+      vector.append(p_types[row['property_type']])
+      vector.append(row['lattitude'])
+      vector.append(row['longitude'])
 
       for i,cat in enumerate(categories):
         if cat not in tdf3['category'].unique():
           vector.append(0)
         else:
           ttdf3 = tdf3[tdf3['category'] == cat]
-          invd = (ttdf3.apply(lambda x: 1/(math.hypot(row[11]-x['longitude'], row[12] - x['latitude']) + 0.000001), axis =1)).sum()
+          invd = (ttdf3.apply(lambda x: 1/(math.hypot(row['longitude']-x['longitude'], row['lattitude'] - x['latitude']) + 0.000001), axis =1)).sum()
           vector.append(invd)  
       return vector 
 
@@ -488,17 +475,12 @@ def get_vector_count_cat(row,df3, distance):  #This function will get a training
       tags = sorted(set(df3['tag']))
       categories = sorted(set(df3['category']))
       p_types = {'F':1, 'T':2, 'S':3, 'D':4, 'O':5}
-      n_flag = {'Y':1,'N':2}
-      t_type = {'L':1, 'F':2}
       tdf3 = df3[(abs(df3['latitude'] - row[11]) <= distance) & (abs(df3['longitude'] - row[12]) <= distance)]
       vector = []
-
-      vector.append(int(row[1].strftime("%Y%m%d")))
-      vector.append(p_types[row[3]])
-      vector.append(n_flag[row[4]])
-      vector.append(t_type[row[5]])
-      vector.append(row[11])
-      vector.append(row[12])
+      vector.append(int(row['date_of_transfer'].strftime("%Y%m%d")))
+      vector.append(p_types[row['property_type']])
+      vector.append(row['lattitude'])
+      vector.append(row['longitude'])
 
       for i,cat in enumerate(categories):
         if cat not in tdf3['category'].unique():
