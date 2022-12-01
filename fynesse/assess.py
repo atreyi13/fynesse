@@ -146,7 +146,7 @@ def prices_over_time(df): #This returns a graph of the prices over time of diffe
     #newticks = [j for i,j in enumerate(x) if not i%24]
     newticks = x
 
-    fig = plt.figure(figsize=(15,15))
+    fig = plt.figure(figsize=(10,10))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
     ax1[0].plot(x, y1.mean(), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, y2.mean(), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
@@ -223,7 +223,7 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
     #newticks = [j for i,j in enumerate(x) if not i%24]
     newticks = x
 
-    fig = plt.figure(figsize=(15,15))
+    fig = plt.figure(figsize=(10,10))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
     ax1[0].plot(x, np.log(y1.mean()), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, np.log(y2.mean()), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
@@ -299,7 +299,7 @@ def transactions_over_time(df): #This returns a graph of the prices over time of
     #newticks = [j for i,j in enumerate(x) if not i%24]
     newticks = x
 
-    fig = plt.figure(figsize=(15,7.5))
+    fig = plt.figure(figsize=(10,5))
     ax1 = fig.subplots(1, 2)
     ax1[0].plot(x, y1.size(), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, y2.size(), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
@@ -506,7 +506,7 @@ def similarity_price_sort(vectors): #This function gives us a similarity matrix 
     vector = np.array([np.array(xi) for xi in vectors])
     distancedf = (distance_matrix(vector, vector))
 
-    fig = plt.figure(figsize=(15,15))
+    fig = plt.figure(figsize=(10,10))
     ax = fig.subplots(2, 2)
 
     im = ax[0, 0].imshow(distancedf, cmap='rainbow')
@@ -528,7 +528,7 @@ def similarity_price_sort(vectors): #This function gives us a similarity matrix 
 def cross_corr(vectors): # This function returns the cross correlation matrix for the features
     vector = np.array([np.array(xi) for xi in vectors])
     corr = pd.DataFrame(vector).corr()
-    fig = plt.figure(figsize=(7,7))
+    fig = plt.figure(figsize=(5,5))
     ax = fig.subplots(1, 1)
     im = ax.imshow(corr, cmap='rainbow')
     plt.colorbar(im, ax=ax)
@@ -539,7 +539,7 @@ def correlation_with_price(vectors, df2): #This returns a graph that plots the c
     vec_tran = vector.transpose()
     vec_price = np.array(df2['price'])
     corr_price = [np.corrcoef(a, vec_price)[0,1] for a in vec_tran]
-    fig = plt.figure(figsize=(7,7))
+    fig = plt.figure(figsize=(5,5))
     ax = fig.subplots(1, 1)
     ax.scatter( [i for i in range(len(corr_price))], corr_price) 
     fig.text(0.5,0.01,"Correlation with Price of Features", ha="center", va="center")   
@@ -550,7 +550,7 @@ def plot_price_similarity(df2): #This function returns the similarity matrix of 
     a = a.reshape(len(a), 1)
 
     distancedf = (distance_matrix(a, a))
-    fig = plt.figure(figsize=(15,15))
+    fig = plt.figure(figsize=(10,10))
     ax = fig.subplots(2, 2)
 
     im = ax[0, 0].imshow(distancedf, cmap='rainbow')
@@ -599,7 +599,7 @@ def spec_pois_num(df2, pois, key, distance, tag=None): # This function plots a s
     j = np.array(spec_pois_temp(df2, pois, key, distance, tag))
     j = j.reshape(len(j), 1)
     distancedf = (distance_matrix(j, j))
-    fig = plt.figure(figsize=(7,7))
+    fig = plt.figure(figsize=(5,5))
     ax = fig.subplots(1, 1)
     im = ax.imshow(distancedf, cmap='rainbow')
     plt.colorbar(im, ax=ax)
