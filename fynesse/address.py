@@ -30,6 +30,9 @@ import statsmodels.api as sm
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import warnings
+
+warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
 
 def hello_world():
     print("This is my first pip package!")
