@@ -22,6 +22,9 @@ import matplotlib.cm as cm
 from matplotlib.lines import Line2D
 import math
 from scipy.spatial import distance_matrix
+import warnings
+
+warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
 
 def data(county, datestart,dateend,country, conn, city = None): # This gets the data from access, No need to run this if access step has been excecuted
     """Load the data from access and ensure missing values are correctly encoded as well as indices correct, column names informative, date and times correctly formatted. Return a structured data structure such as a data frame."""
@@ -307,7 +310,7 @@ def transactions_over_time(df): #This returns a graph of the prices over time of
     ax1[0].set_xticks(newticks)
     ax1[0].set_xticklabels(newticks, rotation = 45)
     ax1[0].set_xlabel('months') 
-    ax1[0].set_ylabel('price') 
+    ax1[0].set_ylabel('number of transactions') 
 
     ax1[1].plot(x, y1.size(), color='red', linestyle='--', zorder=1)
     ax1[1].plot(x, y2.size(), color='cyan', linestyle='--', zorder=1)
@@ -316,10 +319,10 @@ def transactions_over_time(df): #This returns a graph of the prices over time of
     ax1[1].set_xticks(newticks)
     ax1[1].set_xticklabels(newticks, rotation = 45)
     ax1[1].set_xlabel('months') 
-    ax1[1].set_ylabel('price') 
+    ax1[1].set_ylabel('number of transactions') 
 
 
-    fig.text(0.5,0.01, "Prices over time", ha="center", va="center")
+    fig.text(0.5,0.01, "Number of transactions over time", ha="center", va="center")
 
     plt.tight_layout()
     plt.savefig('transactions_overtime.png', bbox_inches = 'tight')
