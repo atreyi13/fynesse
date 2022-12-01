@@ -96,7 +96,7 @@ def plot_log_prices_over_region(df): #This returns a graph that plots the log di
     y = df['lattitude']
     c = np.log(z)
 
-    fig1, ax1 = plt.subplots(figsize=(7,9))
+    fig1, ax1 = plt.subplots(figsize=(4.6,6))
     ax2 = plt.subplot()
     ax1.scatter(x, y, c=c, cmap='rainbow', alpha=0.2)
     im = ax2.scatter(x, y, c=c, cmap='rainbow', alpha=1.0)
@@ -120,7 +120,7 @@ def plot_prices_over_region(df):  #This returns a graph that plots the distribut
     y = df['lattitude']
     c = z
 
-    fig1, ax1 = plt.subplots(figsize=(7,9))
+    fig1, ax1 = plt.subplots(figsize=(4.6,6))
     ax2 = plt.subplot()
     ax1.scatter(x, y, c=c, cmap='rainbow', alpha=0.2)
     im = ax2.scatter(x, y, c=c, cmap='rainbow', alpha=1.0)
