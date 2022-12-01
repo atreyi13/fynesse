@@ -90,7 +90,7 @@ def predict_data(latitude, longitude, date, property_type, conn, funcname= asses
     return df, test
 
   
-def eigen_view(df2, column='vector_distance_cat'):
+def eigen_view(df2, column='vector'):
   vector = np.array([np.array(xi) for xi in list(df2[column])])
   data = pd.DataFrame(vector)
   x_meaned = data - np.mean(data , axis = 0)
@@ -102,7 +102,7 @@ def eigen_view(df2, column='vector_distance_cat'):
   plt.bar(range(len(sorted_eigenvalue)), np.log(sorted_eigenvalue), color ='green',
         width = 0.4)
   
-def prin_comp(components, df2, test, column='vector_distance_cat' ):
+def prin_comp(components, df2, test, column='vector'):
     vector = np.array([np.array(xi) for xi in list(df2[column])])
     data = pd.DataFrame(vector)
     testvec = np.array([np.array(xi) for xi in list(test[column])])
@@ -119,7 +119,7 @@ def prin_comp(components, df2, test, column='vector_distance_cat' ):
     testdata = pca.transform(testdata)
     return data, testdata
   
-def predict_z(df2, test, components,column):
+def predict_z(df2, test, components,column= 'vector'):
     data, testdata = prin_comp(components, df2, test, column)
     z = np.array(df2['price'])
     x = data[:,0]
