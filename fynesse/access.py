@@ -105,7 +105,13 @@ def load_pp_data(filenames,conn): #This will put data in pp_data. Please don't r
           OPTIONALLY ENCLOSED BY '"'
           LINES STARTING BY '' TERMINATED BY '\n';
                 '''
-                (filename))
+                (filename))          
+
+    conn.commit()
+    return
+
+def index_pp_data(filenames,conn): #This will put data in pp_data. Please don't run this
+    c = conn.cursor()
 
     c.execute('''
     ALTER TABLE `pp_data`
