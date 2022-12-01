@@ -110,7 +110,7 @@ def load_pp_data(filenames,conn): #This will put data in pp_data. Please don't r
     conn.commit()
     return
 
-def index_pp_data(filenames,conn): #This will put data in pp_data. Please don't run this
+def index_pp_data(conn): #This will put data in pp_data. Please don't run this
     c = conn.cursor()
 
     c.execute('''
