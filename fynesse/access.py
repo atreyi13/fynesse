@@ -55,20 +55,7 @@ def create_conn(database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west
                          password=credentials["password"], 
                          host=database_details["url"],
                          database="uk_house_prices")
-    return conn              
-
-def create_database(conn): #This will create the database
-    c = conn.cursor()
-
-    c.execute('''
-                SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-                SET time_zone = "+00:00";
-                CREATE DATABASE IF NOT EXISTS `uk_house_prices` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-                '''
-              )       
-
-    conn.commit()
-    return   
+    return conn               
 
 def create_pp_data(conn): #This will empty pp_data.Please don't run this
     c = conn.cursor()
