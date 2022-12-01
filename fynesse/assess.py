@@ -146,7 +146,7 @@ def prices_over_time(df): #This returns a graph of the prices over time of diffe
     newticks = [j for i,j in enumerate(x) if not i%24]
     #newticks = x
 
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(figsize=(15,15))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
     ax1[0].plot(x, y1.mean(), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, y2.mean(), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
@@ -223,7 +223,7 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
     newticks = [j for i,j in enumerate(x) if not i%24]
     #newticks = x
 
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(figsize=(15,15))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
     ax1[0].plot(x, np.log(y1.mean()), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, np.log(y2.mean()), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
@@ -299,7 +299,7 @@ def transactions_over_time(df): #This returns a graph of the prices over time of
     newticks = [j for i,j in enumerate(x) if not i%24]
     #newticks = x
 
-    fig = plt.figure(figsize=(10,5))
+    fig = plt.figure(figsize=(15,7.5))
     ax1 = fig.subplots(1, 2)
     ax1[0].plot(x, y1.size(), color='red', linestyle='--', zorder=1, label="Detached")
     ax1[0].plot(x, y2.size(), color='cyan', linestyle='--', zorder=1, label="Flats/Maisonettes")
