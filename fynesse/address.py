@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 def hello_world():
     print("This is my first pip package!")
 
-def predict_data(latitude, longitude, date, property_type, conn):
+def predict_data_full(latitude, longitude, date, property_type, conn):
     latstart = latitude - 0.1
     latend = latitude + 0.1
     longstart = longitude - 0.1
@@ -47,12 +47,16 @@ def predict_data(latitude, longitude, date, property_type, conn):
     df = access.access_for_prediction(latstart, latend, longstart, longend, datestart,dateend, property_type,conn)
     df = df.sort_values(by=['price'])
     pois = assess.get_pois(df)
+    test = df[(df['lattitude'] == latitude) & (df['longitude']	== longitude ) & (df['date_of_transfer'] == datedate)]
+    df = df[(df['lattitude'] != latitude) | (df['longitude']	!= longitude ) | (df['date_of_transfer'] != datedate)]
+    if len(test) == 0:
+        data = [[0, datetime.strptime(date, "%d%m%Y").date(), 'postcode', property_type, 'new_build_flag', 'tenure_type', 'locality', 'town/city', 'district', 'county', 'country', latitude, longitude]]
+        test = pd.DataFrame(data, columns=['price', 'date_of_transfer', 'postcode', 'property_type'	,'new_build_flag', 'tenure_type', 'locality', 'town_city', 'district', 'county', 'country', 'lattitude', 'logitude' ])
     df['vector_distance_cat'] = assess.vec_app(df,0.02, pois, assess.get_vector_inv_cat)
     df['vector_distance'] = assess.vec_app(df,0.02, pois, assess.get_vector_distance)
     df['vector_count'] = assess.vec_app(df,0.02, pois, assess.get_vector_count)
     df['vector_count_cat'] = assess.vec_app(df, 0.02,pois, assess.get_vector_count_cat)
-    test = df[(df['lattitude'] == latitude) & (df['longitude']	== longitude ) & (df['date_of_transfer'] == datedate)]
-    df = df[(df['lattitude'] != latitude) | (df['longitude']	!= longitude ) | (df['date_of_transfer'] != datedate)]
+    
 
     return df, test
 
