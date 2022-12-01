@@ -222,7 +222,7 @@ def create_price_coord_data(conn): #This will empty prices_coordinates_data. Ple
     conn.commit()
     return
     
-def access_city(county,city,datestart,dateend,country, conn):#This gets prices-coordinates data for a particular city from start date to an end date
+def access_city(city,datestart,dateend,country, conn):#This gets prices-coordinates data for a particular city from start date to an end date
     c = conn.cursor()
     c.execute('''
     INSERT INTO `prices_coordinates_data`(`price`, `date_of_transfer`, `postcode`, `property_type`, `new_build_flag`, `tenure_type`,
@@ -231,11 +231,11 @@ def access_city(county,city,datestart,dateend,country, conn):#This gets prices-c
                           pp.`locality`, pp.`town_city`, pp.`district`, pp.`county`, pc.`country`, pc.`lattitude`, pc.`longitude` FROM
                         (SELECT `price`, `date_of_transfer`, `postcode`, `property_type`, `new_build_flag`, `tenure_type`,
                           `locality`, `town_city`, `district`, `county`   FROM `pp_data` 
-                          WHERE `county` = %s and `town_city` = %s and `date_of_transfer` >= DATE %s and  `date_of_transfer` <= DATE %s) pp
+                          WHERE `town_city` = %s and `date_of_transfer` >= DATE %s and  `date_of_transfer` <= DATE %s) pp
                     INNER JOIN 
                         (SELECT `postcode`, `country`, `lattitude`, `longitude` FROM `postcode_data` WHERE `country` = %s) pc
                     ON
-                        pp.`postcode` = pc.`postcode`);''', (county, city, datestart, dateend, country))
+                        pp.`postcode` = pc.`postcode`);''', ( city, datestart, dateend, country))
                             
     conn.commit()
     df = pd.read_sql("SELECT * FROM `prices_coordinates_data`", conn).set_index('db_id') 
