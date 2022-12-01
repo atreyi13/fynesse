@@ -143,8 +143,8 @@ def prices_over_time(df): #This returns a graph of the prices over time of diffe
 
     x = sorted(list(set((pd.DatetimeIndex( df['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
     x3 = sorted(list(set((pd.DatetimeIndex( df[df['property_type'] == 'O']['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
-    newticks = [j for i,j in enumerate(x) if not i%24]
-    #newticks = x
+    #newticks = [j for i,j in enumerate(x) if not i%24]
+    newticks = x
 
     fig = plt.figure(figsize=(15,15))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
@@ -220,8 +220,8 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
 
     x = sorted(list(set((pd.DatetimeIndex( df['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
     x3 = sorted(list(set((pd.DatetimeIndex( df[df['property_type'] == 'O']['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
-    newticks = [j for i,j in enumerate(x) if not i%24]
-    #newticks = x
+    #newticks = [j for i,j in enumerate(x) if not i%24]
+    newticks = x
 
     fig = plt.figure(figsize=(15,15))
     (ax1, ax2, ax3) = fig.subplots(3, 2)
@@ -296,8 +296,8 @@ def transactions_over_time(df): #This returns a graph of the prices over time of
     y5 = (df[df['property_type'] == 'T'].groupby(pd.PeriodIndex(df[df['property_type'] == 'T']['date_of_transfer'], freq="M"))['price'])
     x = sorted(list(set((pd.DatetimeIndex( df['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
     x3 = sorted(list(set((pd.DatetimeIndex( df[df['property_type'] == 'O']['date_of_transfer']).to_period('M')).strftime('%Y%m'))))
-    newticks = [j for i,j in enumerate(x) if not i%24]
-    #newticks = x
+    #newticks = [j for i,j in enumerate(x) if not i%24]
+    newticks = x
 
     fig = plt.figure(figsize=(15,7.5))
     ax1 = fig.subplots(1, 2)
