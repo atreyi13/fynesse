@@ -255,6 +255,25 @@ def access_county(county,datestart,dateend,country, conn): #This gets prices-coo
     df = pd.read_sql("SELECT * FROM `prices_coordinates_data`", conn).set_index('db_id') 
     return df
 
+def access_all_duration(datestart,dateend, conn): #This gets prices-coordinates data for a particular county from start date to an end date
+    c = conn.cursor()
+    c.execute('''
+    INSERT INTO `prices_coordinates_data`(`price`, `date_of_transfer`, `postcode`, `property_type`, `new_build_flag`, `tenure_type`,
+                          `locality`, `town_city`, `district`, `county`, `country`, `lattitude`, `longitude`)
+    (SELECT pp.`price`, pp.`date_of_transfer`, pp.`postcode`, pp.`property_type`, pp.`new_build_flag`, pp.`tenure_type`,
+                          pp.`locality`, pp.`town_city`, pp.`district`, pp.`county`, pc.`country`, pc.`lattitude`, pc.`longitude` FROM
+                        (SELECT `price`, `date_of_transfer`, `postcode`, `property_type`, `new_build_flag`, `tenure_type`,
+                          `locality`, `town_city`, `district`, `county`   FROM `pp_data` 
+                          WHERE  `date_of_transfer` >= DATE %s and  `date_of_transfer` <= DATE %s) pp
+                    INNER JOIN 
+                        (SELECT `postcode`, `country`, `lattitude`, `longitude` FROM `postcode_data`) pc
+                    ON
+                        pp.`postcode` = pc.`postcode`);''', (datestart, dateend))
+                            
+    conn.commit()
+    df = pd.read_sql("SELECT * FROM `prices_coordinates_data`", conn).set_index('db_id') 
+    return df
+
 def access_for_prediction(latstart, latend, longstart, longend, datestart,dateend, property_type, conn): #This gets prices-coordinates data for a particular county from start date to an end date
     c = conn.cursor()
     c.execute('''
