@@ -150,6 +150,7 @@ def predict_z_models(df2, test, components,column= 'vector'):
     ax.set_zlabel('Z data')
     ax.view_init(30, 120)
     plt.show() 
+    return z_real, models[np.argmax(r2_scores)][0]
 
 def display_pca_data(x,y,z):
     fig = plt.figure(figsize = (14,7))
