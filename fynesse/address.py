@@ -56,8 +56,34 @@ def predict_data_full(latitude, longitude, date, property_type, conn):
     df['vector_distance'] = assess.vec_app(df,0.02, pois, assess.get_vector_distance)
     df['vector_count'] = assess.vec_app(df,0.02, pois, assess.get_vector_count)
     df['vector_count_cat'] = assess.vec_app(df, 0.02,pois, assess.get_vector_count_cat)
+    test['vector_distance_cat'] = assess.vec_app(test,0.02, pois, assess.get_vector_inv_cat)
+    test['vector_distance'] = assess.vec_app(test,0.02, pois, assess.get_vector_distance)
+    test['vector_count'] = assess.vec_app(test,0.02, pois, assess.get_vector_count)
+    test['vector_count_cat'] = assess.vec_app(test, 0.02,pois, assess.get_vector_count_cat)
     
+    return df, test
 
+def predict_data(latitude, longitude, date, property_type, conn, funcname= get_vector_inv_cat):
+    latstart = latitude - 0.1
+    latend = latitude + 0.1
+    longstart = longitude - 0.1
+    longend = longitude + 0.1
+    year = date[-4:]
+    datestart =  year+'-01-01'
+    dateend = year+'-12-31'
+    datedate = datetime.strptime(date, "%d%m%Y").date()
+    access.create_price_coord_data(conn)
+    df = access.access_for_prediction(latstart, latend, longstart, longend, datestart,dateend, property_type,conn)
+    df = df.sort_values(by=['price'])
+    pois = assess.get_pois(df)
+    test = df[(df['lattitude'] == latitude) & (df['longitude']	== longitude ) & (df['date_of_transfer'] == datedate)]
+    df = df[(df['lattitude'] != latitude) | (df['longitude']	!= longitude ) | (df['date_of_transfer'] != datedate)]
+    if len(test) == 0:
+        data = [[0, datetime.strptime(date, "%d%m%Y").date(), 'postcode', property_type, 'new_build_flag', 'tenure_type', 'locality', 'town/city', 'district', 'county', 'country', latitude, longitude]]
+        test = pd.DataFrame(data, columns=['price', 'date_of_transfer', 'postcode', 'property_type'	,'new_build_flag', 'tenure_type', 'locality', 'town_city', 'district', 'county', 'country', 'lattitude', 'logitude' ])
+    df['vector'] = assess.vec_app(df,0.02, pois, assess.funcname)
+    test['vector'] = assess.vec_app(test,0.02, pois, assess.funcname)
+    
     return df, test
 
   
