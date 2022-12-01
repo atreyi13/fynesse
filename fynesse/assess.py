@@ -536,8 +536,10 @@ def correlation_with_price(vectors, df2): #This returns a graph that plots the c
     vec_tran = vector.transpose()
     vec_price = np.array(df2['price'])
     corr_price = [np.corrcoef(a, vec_price)[0,1] for a in vec_tran]
-    plt.scatter( [i for i in range(len(corr_price))], corr_price) 
-    plt.title( "Correlation with Price of Features")    
+    fig = plt.figure(figsize=(7,7))
+    ax = fig.subplots(1, 1)
+    ax.scatter( [i for i in range(len(corr_price))], corr_price) 
+    fig.text(0.5,0.01,"Correlation with Price of Features", ha="center", va="center")   
     
 def plot_price_similarity(df2): #This function returns the similarity matrix of the price data. Certain parts have been zoomed in on like before.
     b = df2['price']
