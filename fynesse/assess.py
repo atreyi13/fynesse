@@ -286,7 +286,7 @@ def log_price_over_time(df): #This is the same as the previous view, except wear
     plt.savefig('prices_overtime_log.png', bbox_inches = 'tight')
     return fig
 
-def transactions_over_time(df): #This returns a graph of the prices over time of different types of houses. The bounds are the max and min house prices.
+def transactions_over_time(df): #This returns a graph of the number of purchases over time of different types of houses. 
 
     y1 = (df[df['property_type'] == 'D'].groupby(pd.PeriodIndex(df[df['property_type'] == 'D']['date_of_transfer'], freq="M"))['price'])
     y2 = (df[df['property_type'] == 'F'].groupby(pd.PeriodIndex(df[df['property_type'] == 'F']['date_of_transfer'], freq="M"))['price'])
