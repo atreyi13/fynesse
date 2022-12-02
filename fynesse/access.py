@@ -31,7 +31,7 @@ def store_credentials():
             yaml.dump(credentials_dict, file)
             
 def create_conn(database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west-2.rds.amazonaws.com', 
-                    "port": 3306}):
+                    "port": 3306},  database_name="uk_house_prices"):
     with open("credentials.yaml") as file:
       credentials = yaml.safe_load(file)
     username = credentials["username"]
@@ -54,7 +54,7 @@ def create_conn(database_details = {"url": 'database-ac2354.cgrre17yxw11.eu-west
     conn = create_connection(user=credentials["username"], 
                          password=credentials["password"], 
                          host=database_details["url"],
-                         database="uk_house_prices")
+                         database=database_name)
     return conn               
 
 def create_pp_data(conn): #This will empty pp_data.Please don't run this
