@@ -33,7 +33,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 import warnings
 
-warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
 
 def hello_world():
     print("This is my first pip package!")
