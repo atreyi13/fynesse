@@ -355,10 +355,12 @@ def predict_z_models_allvecs(df2, test, components): #this function does the act
       return [z1,z2,z3,z4,z5,z6]
 
     results =[]
-    results = results.append(apply_fits(xs[0],ys[0],z,x_tests[0],y_tests[0]))  
-    results = results.append(apply_fits(xs[1],ys[1],z,x_tests[1],y_tests[1]))  
-    results = results.append(apply_fits(xs[2],ys[2],z,x_tests[2],y_tests[2]))  
-    results = results.append(apply_fits(xs[3],ys[3],z,x_tests[3],y_tests[3])) 
+    results = results + apply_fits(xs[0],ys[0],z,x_tests[0],y_tests[0])
+    results = results + apply_fits(xs[1],ys[1],z,x_tests[1],y_tests[1])  
+    results = results + apply_fits(xs[2],ys[2],z,x_tests[2],y_tests[2]) 
+    results = results + apply_fits(xs[3],ys[3],z,x_tests[3],y_tests[3])
+    
+    print(results)
 
     def r2s(val):
       return r2_score(z, val[1])
