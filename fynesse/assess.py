@@ -24,7 +24,6 @@ import math
 from scipy.spatial import distance_matrix
 import warnings
 
-warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
 
 def data(county, datestart,dateend,country, conn, city = None): # This gets the data from access, No need to run this if access step has been excecuted
     """Load the data from access and ensure missing values are correctly encoded as well as indices correct, column names informative, date and times correctly formatted. Return a structured data structure such as a data frame."""
