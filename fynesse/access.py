@@ -260,7 +260,7 @@ def access_county(county,datestart,dateend,country, conn): #This gets prices-coo
     df = pd.read_sql("SELECT * FROM `prices_coordinates_data`", conn).set_index('db_id') 
     return df
 
-def access_all_duration(datestart,dateend, conn): #This gets prices-coordinates data for a particular county from start date to an end date
+def access_all_duration(datestart,dateend, conn): #This gets prices-coordinates data from start date to an end date
     c = conn.cursor()
     c.execute('''
     INSERT INTO `prices_coordinates_data`(`price`, `date_of_transfer`, `postcode`, `property_type`, `new_build_flag`, `tenure_type`,
