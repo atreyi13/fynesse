@@ -351,7 +351,7 @@ def predict_z_models_allvecs(df2, test, components): #this function does the act
       z3 = statsmodel_fit_pred(x,y,z,x_test,y_test)
       z4 =statsmodel_fit_pred_gamma(x,y,z,x_test,y_test)
       z5 = statsmodel_fit_pred_regular1(x,y,z,x_test,y_test)
-      z6 = statsmodel_fit_pred_regular6(x,y,z,x_test,y_test)
+      z6 = statsmodel_fit_pred_regular2(x,y,z,x_test,y_test)
       return [z1,z2,z3,z4,z5,z6]
 
     results =[]
