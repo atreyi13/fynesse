@@ -331,3 +331,51 @@ def statsmodel_fit_pred_regular2(x,y,z,x_test,y_test): #linear model using stats
     z_pred = rb1.predict(design(x_test,y_test))
 
     return z_pred[0], z_fit, (X1,Y1,Z1)
+
+def predict_z_models_allvecs(df2, test, components): #this function does the actual prediction and returns the best model for all the vectors
+    data1, testdata1 = prin_comp(components, df2, test, 'vector_distance')
+    data2, testdata2 = prin_comp(components, df2, test, 'vector_count')
+    data3, testdata3 = prin_comp(components, df2, test, 'vector_distance_cat')
+    data4, testdata4 = prin_comp(components, df2, test, 'vector_count_cat')
+    z = np.array(df2['price'])
+    xs = [data1[:,0], data2[:,0], data3[:,0], data4[:,0]]
+    ys = [data1[:,1], data2[:,1], data3[:,1], data4[:,1]]
+
+    x_tests = [testdata1[:,0][0], testdata2[:,0][0] , testdata3[:,0][0] , testdata4[:,0][0]]
+    y_tests = [testdata1[:,1][0], testdata2[:,1][0] , testdata3[:,1][0] , testdata4[:,1][0]]
+    z_real = np.array(test['price'])[0]
+
+    def apply_fits(x,y,z,x_test,y_test):
+      z1= scipy_fit_pred(x,y,z,x_test,y_test)
+      z2 =sklearn_fit_pred(x,y,z,x_test,y_test)
+      z3 = statsmodel_fit_pred(x,y,z,x_test,y_test)
+      z4 =statsmodel_fit_pred_gamma(x,y,z,x_test,y_test)
+      z5 = statsmodel_fit_pred_regular1(x,y,z,x_test,y_test)
+      z6 = statsmodel_fit_pred_regular6(x,y,z,x_test,y_test)
+      return [z1,z2,z3,z4,z5,z6]
+
+    results =[]
+    results = results.append(apply_fits(xs[0],ys[0],z,x_tests[0],y_tests[0]))  
+    results = results.append(apply_fits(xs[1],ys[1],z,x_tests[1],y_tests[1]))  
+    results = results.append(apply_fits(xs[2],ys[2],z,x_tests[2],y_tests[2]))  
+    results = results.append(apply_fits(xs[3],ys[3],z,x_tests[3],y_tests[3])) 
+
+    def r2s(val):
+      return r2_score(z, val[1])
+
+    scores = list(map(r2s, results))
+    val = np.argmax(scores)
+
+    display_pca_data(xs[val//6],ys[val//6],z)
+    (Xs,Ys,Zs) = scores[val][2]
+
+    fig = plt.figure(figsize = (10,10))
+    ax = Axes3D(fig)
+    ax.plot_surface(Xs,Ys,Zs, color ='purple', alpha = 0.4)
+    ax.scatter(xs[val//6], ys[val//6], z, c = z, cmap='rainbow')
+    ax.set_xlabel('X data')
+    ax.set_ylabel('Y data')
+    ax.set_zlabel('Z data')
+    ax.view_init(30, 120)
+    plt.show() 
+    return z_real, results[val][0], scores[val], val
