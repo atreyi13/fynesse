@@ -15,7 +15,7 @@ import pandas as pd
 from ipywidgets import interact_manual, Text, Password
 import warnings
 
-warnings.filterwarnings("ignore", message= ".*Geometry is in a geographic CRS.*")
+
 
 """Place commands in this file to access the data electronically. Don't remove any missing values, or deal with outliers. Make sure you have legalities correct, both intellectual property and personal data privacy rights. Beyond the legal side also think about the ethical issues around this data. """
 def hello_world():
