@@ -37,7 +37,7 @@ import warnings
 def hello_world():
     print("This is my first pip package!")
 
-def predict_data_full(latitude, longitude, date, property_type, conn):
+def predict_data_full(latitude, longitude, date, property_type, conn): # This function gets data for prediction and calculates all four vectors
     latstart = latitude - 0.1
     latend = latitude + 0.1
     longstart = longitude - 0.1
@@ -66,7 +66,8 @@ def predict_data_full(latitude, longitude, date, property_type, conn):
     
     return df, test
 
-def predict_data(latitude, longitude, date, property_type, conn, funcname= assess.get_vector_inv_cat):
+def predict_data(latitude, longitude, date, property_type, conn, funcname= assess.get_vector_inv_cat): # This function gets data for prediction and calculates all one vector
+    latstart = latitude - 0.1
     latstart = latitude - 0.2
     latend = latitude + 0.2
     longstart = longitude - 0.2
@@ -90,7 +91,7 @@ def predict_data(latitude, longitude, date, property_type, conn, funcname= asses
     return df, test
 
   
-def eigen_view(df2, column='vector'):
+def eigen_view(df2, column='vector'): # This function plots the eigenvalues
   vector = np.array([np.array(xi) for xi in list(df2[column])])
   data = pd.DataFrame(vector)
   x_meaned = data - np.mean(data , axis = 0)
@@ -102,7 +103,7 @@ def eigen_view(df2, column='vector'):
   plt.bar(range(len(sorted_eigenvalue)), np.log(sorted_eigenvalue), color ='green',
         width = 0.4)
   
-def prin_comp(components, df2, test, column='vector'):
+def prin_comp(components, df2, test, column='vector'): # this function does pca
     vector = np.array([np.array(xi) for xi in list(df2[column])])
     data = pd.DataFrame(vector)
     testvec = np.array([np.array(xi) for xi in list(test[column])])
@@ -119,7 +120,7 @@ def prin_comp(components, df2, test, column='vector'):
     testdata = pca.transform(testdata)
     return data, testdata
   
-def predict_z_models(df2, test, components,column= 'vector'):
+def predict_z_models(df2, test, components,column= 'vector'): #this function does the actual prediction and returns the best model
     data, testdata = prin_comp(components, df2, test, column)
     z = np.array(df2['price'])
     x = data[:,0]
@@ -151,7 +152,7 @@ def predict_z_models(df2, test, components,column= 'vector'):
     plt.show() 
     return z_real, models[np.argmax(r2_scores)][0], r2_scores[np.argmax(r2_scores)], np.argmax(r2_scores)
 
-def display_pca_data(x,y,z):
+def display_pca_data(x,y,z): # This displays the data after pca from several angles
     fig = plt.figure(figsize = (14,7))
     ax = fig.add_subplot(1, 2, 1, projection='3d')
     ax1 = fig.add_subplot(1, 2, 2, projection='3d')
@@ -184,13 +185,11 @@ def display_pca_data(x,y,z):
     ax1.set_zlabel('Z data')
     ax1.view_init(30, 180)
     
-def scipy_fit_pred(x,y,z,x_test,y_test):
-  # test function
+def scipy_fit_pred(x,y,z,x_test,y_test): #linear model using scipy
   def function(data, c, d, e, f , g, h, i, j, k, l,m,n,o,p,q):
       x = data[0]
       y = data[1]
       return  c*x**3 + d*y**3 + e*y**2*x + f*y*x**2 + g*x**2 + h*y**2 + i*x*y + j*x + k*y + l + m*x**4 + n*y**4 + o*x**3*y + p*x*y**3 + q*x**2*y**2
-  # convert data into proper format
   x1 = x
   y1 = y
   z1 = z
@@ -205,7 +204,7 @@ def scipy_fit_pred(x,y,z,x_test,y_test):
   return z_pred, z_fit, (X1,Y1,Z1)   
 
 
-def sklearn_fit_pred(x,y,z,x_test,y_test):
+def sklearn_fit_pred(x,y,z,x_test,y_test): #linear model using sklearn
     x1 = x
     y1 = y
     z1 = z
@@ -231,7 +230,7 @@ def sklearn_fit_pred(x,y,z,x_test,y_test):
     return z_pred[0], z_fit, (X1,Y1,Z1)
 
   
-def statsmodel_fit_pred(x,y,z,x_test,y_test):
+def statsmodel_fit_pred(x,y,z,x_test,y_test): #poisson model using statsmodels
 
     x1 = x
     y1 = y
@@ -258,7 +257,7 @@ def statsmodel_fit_pred(x,y,z,x_test,y_test):
 
     return z_pred[0], z_fit, (X1,Y1,Z1)
 
-def statsmodel_fit_pred_gamma(x,y,z,x_test,y_test):
+def statsmodel_fit_pred_gamma(x,y,z,x_test,y_test): #gamma model using statsmodels
 
     x1 = x
     y1 = y
@@ -283,7 +282,7 @@ def statsmodel_fit_pred_gamma(x,y,z,x_test,y_test):
 
     return z_pred[0], z_fit, (X1,Y1,Z1)
 
-def statsmodel_fit_pred_regular1(x,y,z,x_test,y_test):
+def statsmodel_fit_pred_regular1(x,y,z,x_test,y_test): #linear model using statsmodels lasso regression
 
     x1 = x
     y1 = y
@@ -308,7 +307,7 @@ def statsmodel_fit_pred_regular1(x,y,z,x_test,y_test):
 
     return z_pred[0], z_fit, (X1,Y1,Z1)
 
-def statsmodel_fit_pred_regular2(x,y,z,x_test,y_test):
+def statsmodel_fit_pred_regular2(x,y,z,x_test,y_test): #linear model using statsmodels ridge regression
 
     x1 = x
     y1 = y
