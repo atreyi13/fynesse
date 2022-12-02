@@ -360,7 +360,6 @@ def predict_z_models_allvecs(df2, test, components): #this function does the act
     results = results + apply_fits(xs[2],ys[2],z,x_tests[2],y_tests[2]) 
     results = results + apply_fits(xs[3],ys[3],z,x_tests[3],y_tests[3])
     
-    print(results)
 
     def r2s(val):
       return r2_score(z, val[1])
@@ -369,7 +368,7 @@ def predict_z_models_allvecs(df2, test, components): #this function does the act
     val = np.argmax(scores)
 
     display_pca_data(xs[val//6],ys[val//6],z)
-    (Xs,Ys,Zs) = scores[val][2]
+    (Xs,Ys,Zs) = results[val][2]
 
     fig = plt.figure(figsize = (10,10))
     ax = Axes3D(fig)
